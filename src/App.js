@@ -1,16 +1,38 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import React, { Component } from "react";
+import List from "./List";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>start todo app</p>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: "",
+      items: []
+    };
+  }
+
+  onChange = e => {
+    this.setState({ content: e.target.value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    this.setState({
+      content: "",
+      items: [...this.state.items, this.state.content]
+    });
+  };
+  render() {
+    return (
+      <div>
+        <List items={this.state.items} />
+        <form className="App" onSubmit={this.onSubmit}>
+          <input value={this.state.content} onChange={this.onChange} />
+          <button> submit</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default App;
