@@ -17,8 +17,13 @@ class App extends Component {
       content: "",
       items: []
     };
+    this.delete = this.delete.bind(this); //build delete function
   }
-
+  delete(name, i) {
+    let items = this.state.items.slice();
+    items.splice(i, 1);
+    this.setState({ items });
+  }
   onChange = e => {
     this.setState({ content: e.target.value });
   };
@@ -37,7 +42,7 @@ class App extends Component {
           <MDBCol md="6">
             <MDBCard>
               <MDBCardBody>
-                <List items={this.state.items} />
+                <List items={this.state.items} delete={this.delete} />
                 <form className="App" onSubmit={this.onSubmit}>
                   <MDBInput
                     value={this.state.content}
